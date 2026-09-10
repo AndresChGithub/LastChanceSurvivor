@@ -1,0 +1,39 @@
+# Last Chance Survivor
+
+Last Chance Survivor is a 2D multiplayer survival game focused on resource gathering, progression, and player interaction.
+
+The project is being developed as part of our Software Engineering course and will include a frontend, backend, and shared database to support multiple users.
+
+## Planned Features
+
+- 2D multiplayer gameplay
+- User registration and login/logout
+- User profiles
+- Multiple user roles
+- Shared central database
+- Resource gathering and survival mechanics
+- Player progression and interaction
+- Responsive and organized user interface
+
+## Inspiration
+
+The game is currently inspired by multiplayer survival games such as:
+
+- MooMoo.io
+- One Hour One Life
+
+These games serve as general references for the survival, gathering, and multiplayer aspects of the project.
+
+## Technologies
+
+Programming languages, frameworks, and other technologies are still being determined.
+
+## Team
+
+**Team Name:** Last Chance Survivor
+
+Team roles will be assigned as development progresses.
+
+## Status
+
+This project is currently in the planning and early development stage.
