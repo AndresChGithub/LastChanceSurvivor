@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://n6iyb86qj7nq"]
+
+[ext_resource type="PackedScene" uid="uid://dbmvljdi817xk" path="res://Scenes/player.tscn" id="1_iukft"]
+[ext_resource type="Texture2D" uid="uid://crue0dgi71iqb" path="res://Assets/tree_.png" id="2_gl6un"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d13se"]
+size = Vector2(471, 300)
+
+[node name="Game" type="Node2D" unique_id=735513906]
+
+[node name="Player" parent="." unique_id=713716686 instance=ExtResource("1_iukft")]
+position = Vector2(-551, -7)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=904886644]
+zoom = Vector2(0.25, 0.25)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1947381084]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=524207002]
+position = Vector2(-13, 262)
+scale = Vector2(20.25, 14.65625)
+texture = ExtResource("2_gl6un")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1943986162]
+position = Vector2(21, 235)
+shape = SubResource("RectangleShape2D_d13se")
