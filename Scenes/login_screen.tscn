@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://23fn7uowrcib"]
+
+[ext_resource type="PackedScene" uid="uid://dbmvljdi817xk" path="res://Scenes/player.tscn" id="1_np7ol"]
+[ext_resource type="Texture2D" uid="uid://gvqhngh1f0pt" path="res://Assets/title_text.png" id="2_1eh3c"]
+[ext_resource type="Texture2D" uid="uid://dxwr5vrkb0d88" path="res://Assets/signup_text.png" id="3_pajja"]
+[ext_resource type="Texture2D" uid="uid://8irlv4k6oqk4" path="res://Assets/login_text.png" id="4_gwvec"]
+[ext_resource type="Texture2D" uid="uid://d2wvhd6t10s8f" path="res://Assets/arrow_keys.png" id="5_g3dcn"]
+
+[node name="Login_Screen" type="Node2D" unique_id=562765908]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=872587082]
+zoom = Vector2(0.25, 0.25)
+
+[node name="Player" parent="." unique_id=252370134 instance=ExtResource("1_np7ol")]
+position = Vector2(-551, 364)
+
+[node name="TitleText" type="Sprite2D" parent="." unique_id=913810596]
+position = Vector2(67, -1042)
+scale = Vector2(4.3472223, 4.3472223)
+texture = ExtResource("2_1eh3c")
+
+[node name="SignupText" type="Sprite2D" parent="." unique_id=2025407669]
+position = Vector2(-1712.0001, 187)
+scale = Vector2(3.826389, 3.826389)
+texture = ExtResource("3_pajja")
+
+[node name="LoginText" type="Sprite2D" parent="." unique_id=1260503900]
+position = Vector2(1746.0001, 222)
+scale = Vector2(4.4583335, 4.4583335)
+texture = ExtResource("4_gwvec")
+
+[node name="ArrowKeys" type="Sprite2D" parent="." unique_id=1047528196]
+position = Vector2(15.000008, 972)
+scale = Vector2(30.3125, 30.3125)
+texture = ExtResource("5_g3dcn")
