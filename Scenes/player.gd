@@ -2,7 +2,7 @@ extends CharacterBody2D
 @onready var sprite = $player_sprite
 
 
-const SPEED = 700.0
+const SPEED = 1200.0
 
 var texture_left = preload("res://assets/player.png")
 var texture_right = preload("res://Assets/player_reversed.png")

@@ -1,26 +1,31 @@
 [gd_scene format=3 uid="uid://dh7iy3vmfubiq"]
 
+[ext_resource type="Script" uid="uid://b6sea1o20sodf" path="res://Scenes/signup.gd" id="1_6ik2i"]
+
 [node name="Control" type="Control" unique_id=1211132399]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -2.0
-offset_top = 3.0
+offset_top = 4.0
 offset_right = -2.0
 offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6ik2i")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=834579184]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.716
-anchor_bottom = 0.643
-offset_left = 2.0
-offset_top = 6.0
-offset_right = -229.83203
-offset_bottom = 9.335999
+anchor_left = 0.55300003
+anchor_top = 1.0
+anchor_right = 0.55300003
+anchor_bottom = 1.0
+offset_left = -297.05603
+offset_top = -540.0
+offset_right = 295.94397
+offset_bottom = -120.640015
 alignment = 1
 
 [node name="Username" type="LineEdit" parent="VBoxContainer" unique_id=625604409]
@@ -34,3 +39,5 @@ placeholder_text = "Create a password"
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=1170327565]
 layout_mode = 2
 text = "Create Account"
+
+[connection signal="button_down" from="VBoxContainer/Button" to="." method="_on_button_button_down"]

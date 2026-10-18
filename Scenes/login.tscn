@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://yd18vln8jo4n"]
+
+[node name="Control" type="Control" unique_id=1444421122]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1818819887]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.55300003
+anchor_top = 1.0
+anchor_right = 0.55300003
+anchor_bottom = 1.0
+offset_left = -297.05603
+offset_top = -540.0
+offset_right = 295.94397
+offset_bottom = -120.640015
+alignment = 1
+
+[node name="Username" type="LineEdit" parent="VBoxContainer" unique_id=266553149]
+layout_mode = 2
+placeholder_text = "Enter Username"
+
+[node name="Password" type="LineEdit" parent="VBoxContainer" unique_id=1332675918]
+layout_mode = 2
+placeholder_text = "Enter Password"
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=763695336]
+layout_mode = 2
+text = "Login"
