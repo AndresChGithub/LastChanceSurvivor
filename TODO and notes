@@ -1,0 +1,47 @@
+Sprint one objective: Establish a meaningful connection between frontend and backend
+
+We can do this by setting up the signup/login screen, and connecting to SQL so accounts are stored when they are created
+
+
+Sprint 1 TODO:
+	-setup SQL database
+
+	-rate limiting for password entry and account creation
+	
+	-separate login for server admins
+	
+	-improve aesthetics of signup and login screens
+
+	-JSON file
+
+	-create simple logic for rejecting weak passwords
+	
+	-usernames should be unique, so makeing an account will require querying the SQL database
+
+
+Beyond Sprint 1:
+
+	Map Generation:
+		-finish chunk datastructure
+		
+		-create functions to load chunks, unload chunks, reset entire map, etc
+		
+		-Question:  chunks currently store the terrain they contain (trees, boulders, plants), should they also store which
+		 players they contain, and which projectiles they contain (if we add ranged weapons)? 
+		 
+	Multiplayer:
+		-setup host/client structure and use multiplayerAPI
+		
+		-player avatar custimization so players don't all look the same
+		
+	Gameplay:
+		-resource gathering (if player is close to a terrain item, they can gather its resource type)
+		-crafting: add at least a few items which are crafted with the three natural resources
+		-combat: 
+	
+Extra Features:
+	-randomly spawning enemies with simple movement
+	-ranged weapons
+	-other progress/survival bars (e.g. hunger, thirst)
+	-other resources and extended crafting menu
+	
