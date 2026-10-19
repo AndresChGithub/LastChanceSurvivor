@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bjkgdgu1lgmk2"]
+
+[ext_resource type="Script" uid="uid://iv5ercpol5ud" path="res://SQLiteTest/SQLiteTest.gd" id="1_script"]
+
+[node name="SQLiteTest" type="Control" unique_id=373769172]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1001311574]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = -40.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1795844324]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=446510975]
+layout_mode = 2
+text = "Last Chance Survivor - SQLite Test"
+
+[node name="ExplanationLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=977148265]
+layout_mode = 2
+text = "Local fake accounts only. No real passwords or online authentication."
+
+[node name="UsernameInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1127177739]
+layout_mode = 2
+placeholder_text = "Enter a test username (e.g. Andres)"
+
+[node name="AccountButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2082492187]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CreateButton" type="Button" parent="MarginContainer/VBoxContainer/AccountButtons" unique_id=2084439092]
+layout_mode = 2
+text = "Create account"
+
+[node name="SignInButton" type="Button" parent="MarginContainer/VBoxContainer/AccountButtons" unique_id=161337482]
+layout_mode = 2
+text = "Sign in"
+
+[node name="SignOutButton" type="Button" parent="MarginContainer/VBoxContainer/AccountButtons" unique_id=480568389]
+layout_mode = 2
+text = "Sign out"
+
+[node name="ProgressButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1797930073]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="WoodButton" type="Button" parent="MarginContainer/VBoxContainer/ProgressButtons" unique_id=2140917901]
+layout_mode = 2
+text = "+10 wood"
+
+[node name="ScoreButton" type="Button" parent="MarginContainer/VBoxContainer/ProgressButtons" unique_id=116652914]
+layout_mode = 2
+text = "+60 score"
+
+[node name="MoveButton" type="Button" parent="MarginContainer/VBoxContainer/ProgressButtons" unique_id=783263032]
+layout_mode = 2
+text = "Move (10,5)"
+
+[node name="SaveButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1791282934]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/SaveButtons" unique_id=2070363672]
+layout_mode = 2
+text = "Save progress"
+
+[node name="ReloadButton" type="Button" parent="MarginContainer/VBoxContainer/SaveButtons" unique_id=368631818]
+layout_mode = 2
+text = "Reload from DB"
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=648251914]
+layout_mode = 2
+text = "Status"
+
+[node name="PlayerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1521505566]
+layout_mode = 2
+text = "Current player: none"

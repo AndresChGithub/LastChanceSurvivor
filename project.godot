@@ -18,6 +18,14 @@ config/name="LastChanceSurvivor"
 run/main_scene="uid://23fn7uowrcib"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
+[autoload]
+
+DatabaseManager="*uid://bw708av6flugs"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
