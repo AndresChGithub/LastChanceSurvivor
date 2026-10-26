@@ -4,19 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://4ulmll34mu7" path="res://Assets/player.png" id="1_v0iea"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d13se"]
-radius = 82.68
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qg0eh"]
+radius = 58.0
 
 [node name="Player" type="CharacterBody2D" unique_id=252370134]
 script = ExtResource("1_cvnsp")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=89710282]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1522991469]
-position = Vector2(550, -81)
-shape = SubResource("CircleShape2D_d13se")
-disabled = true
-
 [node name="player_sprite" type="Sprite2D" parent="." unique_id=2005578670]
-position = Vector2(559, -19.99997)
-scale = Vector2(16.40625, 13.9375)
+scale = Vector2(2, 2)
 texture = ExtResource("1_v0iea")
+offset = Vector2(0, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522991469]
+shape = SubResource("CircleShape2D_d13se")
+
+[node name="InteractionRange" type="Area2D" parent="." unique_id=212170826]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange" unique_id=6932100]
+shape = SubResource("CircleShape2D_qg0eh")

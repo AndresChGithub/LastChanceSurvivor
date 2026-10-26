@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://yd18vln8jo4n"]
+[gd_scene format=3 uid="uid://yd18vln8jo4n"]
 
-[ext_resource type="Script" path="res://Scenes/login.gd" id="1_login"]
+[ext_resource type="Script" uid="uid://spo4nm5be525" path="res://Scenes/login.gd" id="1_login"]
 
 [node name="Control" type="Control" unique_id=1444421122]
 layout_mode = 3
@@ -18,10 +18,10 @@ anchor_left = 0.55300003
 anchor_top = 1.0
 anchor_right = 0.55300003
 anchor_bottom = 1.0
-offset_left = -297.05603
-offset_top = -540.0
-offset_right = 295.94397
-offset_bottom = -120.640015
+offset_left = -342.92
+offset_top = -464.0
+offset_right = 250.07999
+offset_bottom = -44.640015
 alignment = 1
 
 [node name="Username" type="LineEdit" parent="VBoxContainer" unique_id=266553149]
@@ -37,11 +37,11 @@ secret = true
 layout_mode = 2
 text = "Login"
 
-[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+[node name="StatusLabel" type="Label" parent="VBoxContainer" unique_id=467939591]
 layout_mode = 2
 text = "Sign in to play."
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
+[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=876655217]
 layout_mode = 2
 text = "Back to Main Menu"
 
