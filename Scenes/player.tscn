@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://ce0qiniea1tmo" path="res://Scenes/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://4ulmll34mu7" path="res://Assets/player.png" id="1_v0iea"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d13se"]
-radius = 35.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kldst"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qg0eh"]
 radius = 58.0
@@ -18,7 +17,7 @@ texture = ExtResource("1_v0iea")
 offset = Vector2(0, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522991469]
-shape = SubResource("CircleShape2D_d13se")
+shape = SubResource("CapsuleShape2D_kldst")
 
 [node name="InteractionRange" type="Area2D" parent="." unique_id=212170826]
 collision_layer = 0

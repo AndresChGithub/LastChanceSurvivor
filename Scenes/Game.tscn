@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3hwpsensigyr" path="res://Scenes/Game.gd" id="1_game"]
 [ext_resource type="PackedScene" uid="uid://dbmvljdi817xk" path="res://Scenes/player.tscn" id="1_iukft"]
+[ext_resource type="PackedScene" uid="uid://cgwweokksv2df" path="res://Scenes/Tree.tscn" id="3_j5yw3"]
 
 [node name="Game" type="Node2D" unique_id=735513906]
 script = ExtResource("1_game")
@@ -41,3 +42,18 @@ text = "Save Progress"
 [node name="LogoutButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1192583931]
 layout_mode = 2
 text = "Save and Log Out"
+
+[node name="Tree" parent="." unique_id=1100582333 instance=ExtResource("3_j5yw3")]
+position = Vector2(-208, 84)
+
+[node name="Tree2" parent="." unique_id=1088543304 instance=ExtResource("3_j5yw3")]
+position = Vector2(241, -81)
+
+[node name="Tree3" parent="." unique_id=1459873217 instance=ExtResource("3_j5yw3")]
+position = Vector2(136, -95)
+
+[node name="Tree3" parent="Tree3" unique_id=1368739542 instance=ExtResource("3_j5yw3")]
+position = Vector2(87, -46)
+
+[node name="Tree3" parent="Tree3/Tree3" unique_id=683096549 instance=ExtResource("3_j5yw3")]
+position = Vector2(-52, 122)
