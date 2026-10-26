@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://yd18vln8jo4n"]
+[gd_scene load_steps=2 format=3 uid="uid://yd18vln8jo4n"]
+
+[ext_resource type="Script" path="res://Scenes/login.gd" id="1_login"]
 
 [node name="Control" type="Control" unique_id=1444421122]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_login")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1818819887]
 layout_mode = 1
@@ -28,7 +31,19 @@ placeholder_text = "Enter Username"
 [node name="Password" type="LineEdit" parent="VBoxContainer" unique_id=1332675918]
 layout_mode = 2
 placeholder_text = "Enter Password"
+secret = true
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=763695336]
 layout_mode = 2
 text = "Login"
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sign in to play."
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_pressed"]

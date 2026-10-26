@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://n6iyb86qj7nq"]
 
+[ext_resource type="Script" uid="uid://d3hwpsensigyr" path="res://Scenes/Game.gd" id="1_game"]
 [ext_resource type="PackedScene" uid="uid://dbmvljdi817xk" path="res://Scenes/player.tscn" id="1_iukft"]
 [ext_resource type="Texture2D" uid="uid://crue0dgi71iqb" path="res://Assets/tree_.png" id="2_gl6un"]
 
@@ -7,6 +8,8 @@
 size = Vector2(471, 300)
 
 [node name="Game" type="Node2D" unique_id=735513906]
+script = ExtResource("1_game")
+allow_guest_testing = true
 
 [node name="Player" parent="." unique_id=713716686 instance=ExtResource("1_iukft")]
 position = Vector2(-551, -7)
@@ -24,3 +27,34 @@ texture = ExtResource("2_gl6un")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1943986162]
 position = Vector2(21, 235)
 shape = SubResource("RectangleShape2D_d13se")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1300998795]
+
+[node name="HUD" type="PanelContainer" parent="CanvasLayer" unique_id=2000841687]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 260.0
+offset_bottom = 205.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=873178124]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=350981258]
+layout_mode = 2
+text = "Account"
+
+[node name="WoodLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1137264160]
+layout_mode = 2
+text = "Wood: 0"
+
+[node name="AddWoodButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1855165227]
+layout_mode = 2
+text = "+10 Wood (test)"
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1167660794]
+layout_mode = 2
+text = "Save Progress"
+
+[node name="LogoutButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1192583931]
+layout_mode = 2
+text = "Save and Log Out"

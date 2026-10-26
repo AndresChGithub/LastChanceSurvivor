@@ -34,10 +34,25 @@ placeholder_text = "Create a username"
 
 [node name="Password" type="LineEdit" parent="VBoxContainer" unique_id=1875761101]
 layout_mode = 2
+secret = true
 placeholder_text = "Create a password"
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=1170327565]
 layout_mode = 2
 text = "Create Account"
 
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Choose a username and password."
+
+[node name="GoToLogin" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Go to Login"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/GoToLogin" to="." method="_on_go_to_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_pressed"]
 [connection signal="button_down" from="VBoxContainer/Button" to="." method="_on_button_button_down"]
