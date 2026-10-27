@@ -1,19 +1,18 @@
 class_name Game_Data
 extends RefCounted
 
-
 const TERRAIN_TYPES = ["Tree", "Boulder", "Plant"]
-var loaded_chunks: Dictionary[Vector2i, Game_Data.Chunk]
+static var loaded_chunks: Dictionary[Vector2i, Game_Data.Chunk]
+static var rendered_chunks: Dictionary[Vector2i, Game_Data.Chunk]
 
 # each player will have an item dictionary to keep track of progress.  Keys are the game's resources,
 # values are how many the player has.  
 var item_dict: Dictionary[String, int] = {"wood": 0, "stone": 0, "fiber": 0}
 
 # This file contains data structures to keep track of the game state, which will be stored in SQL
-#TODO: Store player/user information
-#TODO: Create JSON file
-#TODO: send file to SQL using godot-sqlite addon (or another method)
 
+# set seed and for random terrain generation
+const seed: int = 1234
 
 class User_Account:
 	var username: String
@@ -31,9 +30,6 @@ class User_Account:
 		position = Vector2i(0, 0)
 		score = 0
 		
-
-
-
 class Terrain_Item:
 	# can be "Tree", "Boulder" or "Plant", etc when we add more
 	var type: String
@@ -50,35 +46,33 @@ class Chunk:
 	# the origin of a chunk is defined as its bottom left corner.
 	# the chunk accounts for the square [origin_x, origin_x + 1023] X [origin_y, origin_ + 1023]
 	var position: Vector2i
-	
+	var rng: RandomNumberGenerator
+
 	var terrain: Array[Terrain_Item] = []
 	
-	var north: Chunk
-	var east: Chunk
-	var south: Chunk
-	var west: Chunk
 	
-	func _init(pos: Vector2i):
+	func _init(pos: Vector2i, world_seed: int):
 		position = pos
-		
-		# Now randomly generate terrain in this chunk.  Each terrain item has coordinates defined with repect to the 
-		# chunk center.  global_pos = chunk_center + relative_pos
-		
-		# selects the amount of terrain items that will spawn from a Gaussian distribution, change the mean
-		# and std to tweak the random generation
-		var mean: float
-		var std: float
-		var terrain_count: int = floor(randfn(mean, std))
-		
+
+		# Create an independent RNG for this chunk
+		rng = RandomNumberGenerator.new()
+		rng.seed = hash([world_seed, pos])
+
+		# Generate terrain count using a Gaussian distribution
+		var mean: float = 100.0
+		var std: float = 20.0
+		var terrain_count: int = maxi(0, floori(rng.randfn(mean, std)))
+
+		# Generate terrain items
 		for i in range(terrain_count):
-			var terrain_type: String = TERRAIN_TYPES.pick_random()
-			var x_pos: int = randi_range(0, 1023)
-			var y_pos: int = randi_range(0, 1023)
-			position.x = x_pos
-			position.y = y_pos
-			
-			var terrain_item = Terrain_Item.new(terrain_type, position)
+			var terrain_type: String = TERRAIN_TYPES[
+				rng.randi_range(0, TERRAIN_TYPES.size() - 1)
+			]
+
+			var x_pos: int = rng.randi_range(0, 1023)
+			var y_pos: int = rng.randi_range(0, 1023)
+
+			var terrain_pos = Vector2i(x_pos, y_pos)
+			var terrain_item = Terrain_Item.new(terrain_type, terrain_pos)
+
 			terrain.append(terrain_item)
-		
-			
-		
