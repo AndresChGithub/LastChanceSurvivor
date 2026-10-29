@@ -21,7 +21,7 @@ func _ready() -> void:
 
 	if account == null:
 		if allow_guest_testing:
-			status_label.text = "Guest mode - progress is not saved"
+			status_label.text = "Admin mode - progress is not saved"
 			_update_wood_label()
 			return
 
