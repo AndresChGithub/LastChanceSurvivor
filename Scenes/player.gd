@@ -48,6 +48,7 @@ func _process(delta: float) -> void:
 	current_chunk + Vector2i(-1024, 1024)
 ]
 	for chunk_pos in chunks_to_render:
+		
 		if Game_Data.rendered_chunks.has(chunk_pos):
 			pass
 		else:
@@ -56,7 +57,7 @@ func _process(delta: float) -> void:
 				render_chunk(Game_Data.loaded_chunks[chunk_pos])
 				Game_Data.rendered_chunks[chunk_pos] = Game_Data.loaded_chunks[chunk_pos]
 			else:
-		
+				
 				# generate the chunk, then render it
 				Game_Data.loaded_chunks[chunk_pos] = Game_Data.Chunk.new(chunk_pos, Game_Data.seed)
 				render_chunk(Game_Data.loaded_chunks[chunk_pos])
@@ -69,6 +70,10 @@ const plant_scene = preload("res://Scenes/Plant.tscn")
 func render_chunk(chunk: Game_Data.Chunk):
 	print(chunk.terrain.size())
 	for terrain in chunk.terrain:
+		var pos = terrain.position + chunk.position
+		if abs(pos.x) < 250 and abs(pos.y) < 250:
+			continue
+		
 		if terrain.type == "Tree":
 			var tree = tree_scene.instantiate()
 			tree.position = terrain.position + chunk.position
