@@ -4,7 +4,8 @@ extends StaticBody2D
 signal resources_collected(resource_type: String, amount: int)
 
 @export var hits_to_break: int = 3
-@export var wood_amount: int = 5
+@export var resource_type: String = "wood"
+@export var resource_amount: int = 5
 
 var hits_remaining: int
 
@@ -32,5 +33,5 @@ func harvest() -> void:
 
 	if hits_remaining == 0:
 		DatabaseManager.mark_terrain_broken(_world_key())
-		resources_collected.emit("wood", wood_amount)
+		resources_collected.emit(resource_type, resource_amount)
 		queue_free()

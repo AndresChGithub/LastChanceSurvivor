@@ -12,6 +12,8 @@ process_thread_group_order = 0
 process_thread_messages = 0
 collision_layer = 3
 script = ExtResource("1_mb61i")
+resource_type = "fiber"
+resource_amount = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1074078148]
 position = Vector2(1, -24)
