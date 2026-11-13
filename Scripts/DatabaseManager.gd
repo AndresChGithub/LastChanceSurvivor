@@ -12,6 +12,10 @@ var last_error: String = ""
 var current_player: Dictionary = {}
 var current_account: Game_Data.User_Account = null
 
+# Where the SQLite file lives. Tests set this to a throwaway file
+# before the node enters the tree so they never touch real save data.
+
+
 
 func _ready() -> void:
 	db = SQLite.new()
@@ -84,6 +88,22 @@ func _prepare_players_table() -> bool:
 				last_error = "Could not add database column: " + column
 				push_error(last_error + " " + db.error_message)
 				return false
+
+	# One row per tree/boulder/plant a player has broken, keyed by its
+	# world position (the world is generated from a fixed seed, so a
+	# position always refers to the same object).
+	var broken_sql = """
+		CREATE TABLE IF NOT EXISTS broken_terrain (
+			player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+			pos_x INTEGER NOT NULL,
+			pos_y INTEGER NOT NULL,
+			PRIMARY KEY (player_id, pos_x, pos_y)
+		);
+	"""
+	if not db.query(broken_sql):
+		last_error = "Could not create the broken_terrain table."
+		push_error(last_error + " " + db.error_message)
+		return false
 
 	return true
 
@@ -191,6 +211,13 @@ func _load_player(player_data: Dictionary) -> void:
 	account.item_dict["stone"] = int(player_data["stone"])
 	account.item_dict["fiber"] = int(player_data["fiber"])
 
+	var broken_sql = "SELECT pos_x, pos_y FROM broken_terrain WHERE player_id = ?;"
+	if db.query_with_bindings(broken_sql, [player_data["id"]]):
+		for row in db.query_result:
+			account.broken_terrain[Vector2i(int(row["pos_x"]), int(row["pos_y"]))] = true
+	else:
+		push_error("Could not load broken terrain: " + db.error_message)
+
 	current_player = player_data
 	current_account = account
 
@@ -214,10 +241,24 @@ func save_current_account() -> bool:
 		current_player["id"]
 	]
 
+	# Save stats and broken terrain together so they can't get out of sync.
+	db.query("BEGIN TRANSACTION;")
+
 	if not db.query_with_bindings(sql, values):
+		db.query("ROLLBACK;")
 		last_error = "Could not save player progress."
 		push_error(last_error + " " + db.error_message)
 		return false
+
+	var broken_sql = "INSERT OR IGNORE INTO broken_terrain (player_id, pos_x, pos_y) VALUES (?, ?, ?);"
+	for pos in current_account.broken_terrain:
+		if not db.query_with_bindings(broken_sql, [current_player["id"], pos.x, pos.y]):
+			db.query("ROLLBACK;")
+			last_error = "Could not save broken terrain."
+			push_error(last_error + " " + db.error_message)
+			return false
+
+	db.query("COMMIT;")
 
 	current_player = get_player(current_account.username)
 	last_error = ""
@@ -232,6 +273,17 @@ func reload_current_account() -> bool:
 		return false
 	_load_player(player_data)
 	return true
+
+
+func is_terrain_broken(world_pos: Vector2i) -> bool:
+	return current_account != null and current_account.broken_terrain.has(world_pos)
+
+
+# Remembers a broken tree/boulder/plant. Written to the database on the
+# next save, same as the player's other progress.
+func mark_terrain_broken(world_pos: Vector2i) -> void:
+	if current_account != null:
+		current_account.broken_terrain[world_pos] = true
 
 
 func sign_out() -> void:
