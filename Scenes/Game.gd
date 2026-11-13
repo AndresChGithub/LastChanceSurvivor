@@ -11,6 +11,11 @@ var guest_wood: int = 0
 
 
 func _ready() -> void:
+	# rendered_chunks is a static var, so it survives scene changes. The tree/
+	# boulder/plant nodes from the last time this scene was open were freed
+	# on logout, so forget them here or render_chunks() will skip every chunk.
+	Game_Data.rendered_chunks.clear()
+
 	var buttons = $CanvasLayer/HUD/VBoxContainer
 
 	buttons.get_node("AddWoodButton").pressed.connect(_on_add_wood_pressed)
