@@ -1,8 +1,10 @@
 extends Node
 
-# This script runs once as an Autoload named DatabaseManager.
-# It stores local player accounts and progress in SQLite.
-# Online multiplayer authentication will need a trusted server later.
+# Autoload: DatabaseManager
+# Local accounts live in user://last_chance_survivor.db.
+# A player's permanent UID does not change when their username changes.
+# Gameplay saving below is temporary; we will move progress into individual
+# world saves when we build the world-selection system.
 
 @export var db_path: String = "user://last_chance_survivor.db"
 
@@ -31,12 +33,14 @@ func _ready() -> void:
 
 
 func _prepare_players_table() -> bool:
+	# Fresh schema only. Delete the old test database before using this file.
 	var sql = """
 		CREATE TABLE IF NOT EXISTS players (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			player_uid TEXT NOT NULL UNIQUE,
 			username TEXT NOT NULL UNIQUE,
-			password_hash TEXT NOT NULL DEFAULT '',
-			password_salt TEXT NOT NULL DEFAULT '',
+			password_hash TEXT NOT NULL,
+			password_salt TEXT NOT NULL,
 			level INTEGER NOT NULL DEFAULT 1,
 			coins INTEGER NOT NULL DEFAULT 0,
 			score INTEGER NOT NULL DEFAULT 0,
@@ -53,42 +57,11 @@ func _prepare_players_table() -> bool:
 		push_error(last_error + " " + db.error_message)
 		return false
 
-	# Older test databases do not have every column. Add missing ones.
-	if not db.query("PRAGMA table_info(players);"):
-		last_error = "Could not inspect the players table."
-		return false
-
-	var existing_columns: Array[String] = []
-	for row in db.query_result:
-		existing_columns.append(str(row["name"]))
-
-	var required_columns = {
-		"password_hash": "TEXT NOT NULL DEFAULT ''",
-		"password_salt": "TEXT NOT NULL DEFAULT ''",
-		"level": "INTEGER NOT NULL DEFAULT 1",
-		"coins": "INTEGER NOT NULL DEFAULT 0",
-		"score": "INTEGER NOT NULL DEFAULT 0",
-		"pos_x": "INTEGER NOT NULL DEFAULT 0",
-		"pos_y": "INTEGER NOT NULL DEFAULT 0",
-		"wood": "INTEGER NOT NULL DEFAULT 0",
-		"stone": "INTEGER NOT NULL DEFAULT 0",
-		"fiber": "INTEGER NOT NULL DEFAULT 0"
-	}
-
-	for column in required_columns:
-		if column not in existing_columns:
-			var alter_sql = "ALTER TABLE players ADD COLUMN %s %s;" % [
-				column, required_columns[column]
-			]
-			if not db.query(alter_sql):
-				last_error = "Could not add database column: " + column
-				push_error(last_error + " " + db.error_message)
-				return false
-
 	return true
 
 
 func check_password(password: String) -> String:
+	# Keep the existing rules used by signup.gd.
 	if password.length() < 8:
 		return "passwords must be at least 8 characters"
 	if password.to_lower() == password:
@@ -106,24 +79,31 @@ func register_account(username: String, password: String) -> bool:
 	if username.is_empty():
 		last_error = "Enter a username."
 		return false
-	if check_password(password) != "good":
-		last_error = check_password(password)
+
+	var password_result: String = check_password(password)
+	if password_result != "good":
+		last_error = password_result
 		return false
 
+	var player_uid: String = Crypto.new().generate_random_bytes(16).hex_encode()
 	var salt: String = Crypto.new().generate_random_bytes(16).hex_encode()
 	var password_hash: String = _hash_password(password, salt)
 
-	var sql = "INSERT OR IGNORE INTO players (username, password_hash, password_salt) VALUES (?, ?, ?);"
-	if not db.query_with_bindings(sql, [username, password_hash, salt]):
+	var sql = """
+		INSERT OR IGNORE INTO players
+			(player_uid, username, password_hash, password_salt)
+		VALUES (?, ?, ?, ?);
+	"""
+	if not db.query_with_bindings(sql, [player_uid, username, password_hash, salt]):
 		last_error = "Could not create account."
-		push_error(db.error_message)
+		push_error(last_error + " " + db.error_message)
 		return false
 
-	# INSERT OR IGNORE does not report duplicates as SQL errors.
+	# INSERT OR IGNORE succeeds even if the username already exists.
 	if not db.query("SELECT changes() AS inserted;"):
 		last_error = "Could not verify account creation."
 		return false
-	if int(db.query_result[0]["inserted"]) == 0:
+	if db.query_result.is_empty() or int(db.query_result[0]["inserted"]) == 0:
 		last_error = "That username is already taken."
 		return false
 
@@ -131,8 +111,8 @@ func register_account(username: String, password: String) -> bool:
 
 
 func login_account(username: String, password: String) -> bool:
-	last_error = "Incorrect username or password."
 	sign_out()
+	last_error = "Incorrect username or password."
 
 	if not database_ready:
 		last_error = "Database is not ready."
@@ -141,23 +121,21 @@ func login_account(username: String, password: String) -> bool:
 	username = username.strip_edges()
 	var sql = "SELECT password_hash, password_salt FROM players WHERE username = ?;"
 	if not db.query_with_bindings(sql, [username]):
-		push_error("Login lookup failed: " + db.error_message)
+		last_error = "Could not check login details."
+		push_error(last_error + " " + db.error_message)
 		return false
 	if db.query_result.is_empty():
 		return false
 
 	var saved_hash: String = str(db.query_result[0]["password_hash"])
 	var salt: String = str(db.query_result[0]["password_salt"])
-	if saved_hash.is_empty() or salt.is_empty():
-		# Accounts from the old passwordless test cannot log in.
-		return false
-
 	var typed_hash: String = _hash_password(password, salt)
 	if not Crypto.new().constant_time_compare(saved_hash.hex_decode(), typed_hash.hex_decode()):
 		return false
 
-	var player_data = get_player(username)
+	var player_data: Dictionary = get_player(username)
 	if player_data.is_empty():
+		last_error = "Could not load account."
 		return false
 
 	_load_player(player_data)
@@ -169,9 +147,10 @@ func get_player(username: String) -> Dictionary:
 	if not database_ready:
 		return {}
 
-	# Only return gameplay fields, not password credentials.
+	# Intentionally omit password hashes and salts from the result.
 	var sql = """
-		SELECT id, username, level, coins, score, pos_x, pos_y, wood, stone, fiber
+		SELECT id, player_uid, username, level, coins, score,
+			pos_x, pos_y, wood, stone, fiber
 		FROM players WHERE username = ?;
 	"""
 	if not db.query_with_bindings(sql, [username.strip_edges()]):
@@ -183,7 +162,68 @@ func get_player(username: String) -> Dictionary:
 	return db.query_result[0].duplicate(true)
 
 
+func get_player_by_uid(player_uid: String) -> Dictionary:
+	if not database_ready or player_uid.is_empty():
+		return {}
+
+	var sql = """
+		SELECT id, player_uid, username, level, coins, score,
+			pos_x, pos_y, wood, stone, fiber
+		FROM players WHERE player_uid = ?;
+	"""
+	if not db.query_with_bindings(sql, [player_uid]):
+		push_error("Player UID lookup failed: " + db.error_message)
+		return {}
+	if db.query_result.is_empty():
+		return {}
+
+	return db.query_result[0].duplicate(true)
+
+
+func get_current_player_uid() -> String:
+	return str(current_player.get("player_uid", ""))
+
+
+func is_signed_in() -> bool:
+	return current_account != null and not current_player.is_empty()
+
+
+func rename_current_account(new_username: String) -> bool:
+	last_error = ""
+	if not database_ready or not is_signed_in():
+		last_error = "Sign in before changing your username."
+		return false
+
+	new_username = new_username.strip_edges()
+	if new_username.is_empty():
+		last_error = "Enter a username."
+		return false
+	if new_username == str(current_player["username"]):
+		return true
+
+	# Rename the account without changing its permanent player UID.
+	var sql = "UPDATE OR IGNORE players SET username = ? WHERE id = ?;"
+	if not db.query_with_bindings(sql, [new_username, current_player["id"]]):
+		last_error = "Could not change username."
+		push_error(last_error + " " + db.error_message)
+		return false
+
+	if not db.query("SELECT changes() AS updated;"):
+		last_error = "Could not verify username change."
+		return false
+	if db.query_result.is_empty() or int(db.query_result[0]["updated"]) == 0:
+		last_error = "That username is already taken."
+		return false
+
+	# Refresh the in-memory account and database record.
+	var uid: String = get_current_player_uid()
+	current_account.username = new_username
+	current_player = get_player_by_uid(uid)
+	return not current_player.is_empty()
+
+
 func _load_player(player_data: Dictionary) -> void:
+	# Preserve the existing object interface that Game.gd uses.
 	var account = Game_Data.User_Account.new(str(player_data["username"]), "")
 	account.score = int(player_data["score"])
 	account.position = Vector2i(int(player_data["pos_x"]), int(player_data["pos_y"]))
@@ -196,13 +236,15 @@ func _load_player(player_data: Dictionary) -> void:
 
 
 func save_current_account() -> bool:
-	if not database_ready or current_account == null:
+	# Temporary account-level progress storage for today's Game.tscn.
+	# Later this will become world-specific, without changing player_uid.
+	if not database_ready or not is_signed_in():
 		last_error = "No signed-in account to save."
 		return false
 
 	var sql = """
 		UPDATE players SET score = ?, pos_x = ?, pos_y = ?,
-		wood = ?, stone = ?, fiber = ? WHERE id = ?;
+			wood = ?, stone = ?, fiber = ? WHERE id = ?;
 	"""
 	var values = [
 		current_account.score,
@@ -219,17 +261,20 @@ func save_current_account() -> bool:
 		push_error(last_error + " " + db.error_message)
 		return false
 
-	current_player = get_player(current_account.username)
+	var uid: String = get_current_player_uid()
+	current_player = get_player_by_uid(uid)
 	last_error = ""
 	return not current_player.is_empty()
 
 
 func reload_current_account() -> bool:
-	if current_account == null:
+	if not is_signed_in():
 		return false
-	var player_data = get_player(current_account.username)
+
+	var player_data: Dictionary = get_player_by_uid(get_current_player_uid())
 	if player_data.is_empty():
 		return false
+
 	_load_player(player_data)
 	return true
 
@@ -240,9 +285,8 @@ func sign_out() -> void:
 
 
 func _hash_password(password: String, salt: String) -> String:
-	# A salted SHA-256 hash is enough to demonstrate this local prototype.
-	# It is NOT suitable for production authentication. Use Argon2id or
-	# another proper password-hashing system on the server in Sprint 2.
+	# Salted SHA-256 is only for this local classroom prototype.
+	# A real authentication service should use a slow password hash (Argon2id).
 	return (salt + ":" + password).sha256_text()
 
 
