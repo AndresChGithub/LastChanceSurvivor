@@ -66,7 +66,7 @@ func _process(delta: float) -> void:
 		target_angle,
 		12.0 * delta
 	)
-	print(scene_file_path)
+	# print(scene_file_path)
 	if get_tree().current_scene.name == "Game":
 		render_chunks()
 	
@@ -77,7 +77,7 @@ const tree_scene = preload("res://Scenes/Tree.tscn")
 const boulder_scene = preload("res://Scenes/Boulder.tscn")
 const plant_scene = preload("res://Scenes/Plant.tscn")
 func render_chunk(chunk: Game_Data.Chunk):
-	print(chunk.terrain.size())
+	# print(chunk.terrain.size())
 	for terrain in chunk.terrain:
 		var pos = terrain.position + chunk.position
 		if abs(pos.x) < 250 and abs(pos.y) < 250:

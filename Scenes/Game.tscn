@@ -31,11 +31,11 @@ text = "Account"
 layout_mode = 2
 text = "Wood: 0"
 
-[node name="StoneLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
+[node name="StoneLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1045316138]
 layout_mode = 2
 text = "Stone: 0"
 
-[node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
+[node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1932149126]
 layout_mode = 2
 text = "Fiber: 0"
 
