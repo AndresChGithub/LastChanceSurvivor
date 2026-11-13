@@ -4,6 +4,10 @@ extends RefCounted
 
 var failures: Array[String] = []
 
+## Set to true in a test that deliberately triggers push_error(). Script
+## errors (crashes) still fail the test either way.
+var allow_errors: bool = false
+
 
 func check(condition: bool, message: String) -> void:
 	if not condition:

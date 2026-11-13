@@ -1,3 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Godot makes a ~copy of GDExtension DLLs while running, and Windows leaves
+# *.TMP files behind when it can't replace a locked one. Never commit these.
+~*.dll
+*.TMP
+*.tmp
