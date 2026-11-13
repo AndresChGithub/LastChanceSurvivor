@@ -43,7 +43,7 @@ text = "Sign in to play."
 
 [node name="BackButton" type="Button" parent="VBoxContainer" unique_id=876655217]
 layout_mode = 2
-text = "Back to Main Menu"
+text = "Back"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_login_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_pressed"]

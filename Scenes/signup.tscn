@@ -51,7 +51,7 @@ text = "Go to Login"
 
 [node name="BackButton" type="Button" parent="VBoxContainer" unique_id=827345363]
 layout_mode = 2
-text = "Back to Main Menu"
+text = "Back"
 
 [connection signal="button_down" from="VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="VBoxContainer/GoToLogin" to="." method="_on_go_to_login_pressed"]
