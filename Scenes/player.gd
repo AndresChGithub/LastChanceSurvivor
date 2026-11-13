@@ -53,7 +53,11 @@ func render_chunks() -> void:
 				Game_Data.rendered_chunks[chunk_pos] = Game_Data.loaded_chunks[chunk_pos]
 
 
+
 func _process(delta: float) -> void:
+	if get_tree().current_scene.name == "Game":
+		render_chunks()
+
 	var mouse_direction = get_global_mouse_position() - sprite.global_position
 
 	if mouse_direction.length_squared() < 1.0:
@@ -66,6 +70,7 @@ func _process(delta: float) -> void:
 		target_angle,
 		12.0 * delta
 	)
+
 	# print(scene_file_path)
 	if get_tree().current_scene.name == "Game":
 		render_chunks()
