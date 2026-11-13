@@ -10,7 +10,7 @@ func _on_login_pressed() -> void:
 	var password: String = password_input.text
 
 	if DatabaseManager.login_account(username, password):
-		get_tree().change_scene_to_file("res://Scenes/Game.tscn")
+		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	else:
 		status_label.text = DatabaseManager.last_error
 		password_input.clear()

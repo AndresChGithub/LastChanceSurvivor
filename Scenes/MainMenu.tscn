@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://cmcbv5706brs0"]
+
+[ext_resource type="Script" uid="uid://buoto8cphkwvj" path="res://Scenes/MainMenu.gd" id="1_menu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.101961, 0.137255, 0.172549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.321569, 0.423529, 0.466667, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.164706, 0.219608, 0.25098, 1)
+border_width_bottom = 3
+border_color = Color(0.058824, 0.090196, 0.101961, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.239216, 0.321569, 0.360784, 1)
+border_width_bottom = 3
+border_color = Color(0.929412, 0.654902, 0.32549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="MainMenu" type="Control" unique_id=695204940]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="." unique_id=790565774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.062745, 0.094118, 0.113725, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=300719508]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=1806267438]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=1832845096]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 26
+
+[node name="Menu" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=298486341]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Menu" unique_id=771163269]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.784314, 0.486275, 1)
+theme_override_font_sizes/font_size = 34
+text = "LAST CHANCE SURVIVOR"
+horizontal_alignment = 1
+
+[node name="AccountLabel" type="Label" parent="Center/Panel/Margin/Menu" unique_id=1260755537]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.85098, 0.858824, 1)
+theme_override_font_sizes/font_size = 17
+text = "Signed in as ..."
+horizontal_alignment = 1
+
+[node name="Spacing" type="Control" parent="Center/Panel/Margin/Menu" unique_id=17564014]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PlayButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=543393521]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Singleplayer"
+
+[node name="JoinMultiplayerButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=544620455]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Join Multiplayer"
+
+[node name="ProfileButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=1332384024]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Player Profile"
+
+[node name="SettingsButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=830613744]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Settings"
+
+[node name="LogOutButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=668092211]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Log Out"
+
+[node name="QuitButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=933388082]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Quit"
+
+[node name="StatusLabel" type="Label" parent="Center/Panel/Margin/Menu" unique_id=758283768]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.784314, 0.486275, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="Center/Panel/Margin/Menu/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/Menu/JoinMultiplayerButton" to="." method="_on_join_multiplayer_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/Menu/ProfileButton" to="." method="_on_profile_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/Menu/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/Menu/LogOutButton" to="." method="_on_log_out_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/Menu/QuitButton" to="." method="_on_quit_pressed"]
