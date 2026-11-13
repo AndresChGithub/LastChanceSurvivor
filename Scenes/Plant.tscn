@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dfc3o8w8d22ey"]
+
+[ext_resource type="Script" uid="uid://dar67i22eml7j" path="res://Scenes/tree.gd" id="1_mb61i"]
+[ext_resource type="Texture2D" uid="uid://chmycmiuuysa5" path="res://Assets/plant.png" id="2_mb61i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ahyq"]
+radius = 9.0
+
+[node name="Tree" type="StaticBody2D" unique_id=1100582333 groups=["harvestable"]]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+collision_layer = 3
+script = ExtResource("1_mb61i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1074078148]
+position = Vector2(1, -24)
+scale = Vector2(3, 3)
+texture = ExtResource("2_mb61i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=799619243]
+position = Vector2(0, -9)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0ahyq")

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cvun6h2okn80k"]
+
+[ext_resource type="Script" uid="uid://dar67i22eml7j" path="res://Scenes/tree.gd" id="1_w4ub5"]
+[ext_resource type="Texture2D" uid="uid://bikooq4x4uktm" path="res://Assets/boulder.png" id="2_w4ub5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ahyq"]
+radius = 9.0
+
+[node name="Boulder" type="StaticBody2D" unique_id=1100582333 groups=["harvestable"]]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+collision_layer = 3
+script = ExtResource("1_w4ub5")
+metadata/_edit_vertical_guides_ = [-16.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1074078148]
+position = Vector2(-1, -24)
+scale = Vector2(3, 3)
+texture = ExtResource("2_w4ub5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=799619243]
+position = Vector2(0, -9)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0ahyq")
