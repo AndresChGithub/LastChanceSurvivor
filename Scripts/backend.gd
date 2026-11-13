@@ -21,7 +21,7 @@ class User_Account:
 	var score: int
 	# each player will have an item dictionary to keep track of progress.  Keys are the game's resources,
 	# values are how many the player has.  
-	var item_dict: Dictionary[String, int] = {"wood": 0, "stone": 0, "fiber": 0}
+	var item_dict: Dictionary[String, int] = {"wood": 0, "stone": 0, "fiber": 0, "knife": 0, "axe": 0, "string": 0, "bow": 0, "pickaxe": 0, "hoe": 0}
 	var position: Vector2i
 	# world positions of trees/boulders/plants this player has broken.
 	# Used as a set (the bool value is unused). Saved in the broken_terrain table.
