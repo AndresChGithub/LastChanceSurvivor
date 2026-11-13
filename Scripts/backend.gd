@@ -23,7 +23,10 @@ class User_Account:
 	# values are how many the player has.  
 	var item_dict: Dictionary[String, int] = {"wood": 0, "stone": 0, "fiber": 0}
 	var position: Vector2i
-	
+	# world positions of trees/boulders/plants this player has broken.
+	# Used as a set (the bool value is unused). Saved in the broken_terrain table.
+	var broken_terrain: Dictionary[Vector2i, bool] = {}
+
 	func _init(user: String, hash: String) -> void:
 		username = user
 		password_hash = hash

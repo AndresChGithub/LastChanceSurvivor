@@ -1,6 +1,8 @@
 
 extends CharacterBody2D
 
+signal resource_collected(resource_type: String, amount: int)
+
 const SPEED: float = 360.0
 
 @onready var sprite: Sprite2D = $player_sprite
@@ -17,20 +19,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	camera.position = position
 
-func _process(delta: float) -> void:
-	var mouse_direction = get_global_mouse_position() - sprite.global_position
-
-	if mouse_direction.length_squared() < 1.0:
-		return
-
-	var target_angle = mouse_direction.angle() + PI
-
-	sprite.global_rotation = lerp_angle(
-		sprite.global_rotation,
-		target_angle,
-		12.0 * delta
-	)
-	
+func render_chunks() -> void:
 	# chunk rendering
 	var current_chunk = Vector2i(
 	floori(position.x / 1024.0) * 1024,
@@ -62,6 +51,26 @@ func _process(delta: float) -> void:
 				Game_Data.loaded_chunks[chunk_pos] = Game_Data.Chunk.new(chunk_pos, Game_Data.seed)
 				render_chunk(Game_Data.loaded_chunks[chunk_pos])
 				Game_Data.rendered_chunks[chunk_pos] = Game_Data.loaded_chunks[chunk_pos]
+
+
+func _process(delta: float) -> void:
+	var mouse_direction = get_global_mouse_position() - sprite.global_position
+
+	if mouse_direction.length_squared() < 1.0:
+		return
+
+	var target_angle = mouse_direction.angle() + PI
+
+	sprite.global_rotation = lerp_angle(
+		sprite.global_rotation,
+		target_angle,
+		12.0 * delta
+	)
+	print(scene_file_path)
+	if get_tree().current_scene.name == "Game":
+		render_chunks()
+	
+	
 				
 				
 const tree_scene = preload("res://Scenes/Tree.tscn")
@@ -77,15 +86,18 @@ func render_chunk(chunk: Game_Data.Chunk):
 		if terrain.type == "Tree":
 			var tree = tree_scene.instantiate()
 			tree.position = terrain.position + chunk.position
+			tree.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(tree)
 			#render the tree
 		if terrain.type == "Boulder":
 			var boulder = boulder_scene.instantiate()
 			boulder.position = terrain.position + chunk.position
+			boulder.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(boulder)
 		if terrain.type == "Plant":
 			var plant = plant_scene.instantiate()
 			plant.position = terrain.position + chunk.position
+			plant.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(plant)
 	
 	

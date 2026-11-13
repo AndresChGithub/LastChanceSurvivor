@@ -31,6 +31,14 @@ text = "Account"
 layout_mode = 2
 text = "Wood: 0"
 
+[node name="StoneLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
+layout_mode = 2
+text = "Stone: 0"
+
+[node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
+layout_mode = 2
+text = "Fiber: 0"
+
 [node name="AddWoodButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1855165227]
 layout_mode = 2
 text = "+10 Wood (test)"
@@ -52,8 +60,8 @@ position = Vector2(241, -81)
 [node name="Tree3" parent="." unique_id=1459873217 instance=ExtResource("3_j5yw3")]
 position = Vector2(136, -95)
 
-[node name="Tree3" parent="Tree3" unique_id=1368739542 instance=ExtResource("3_j5yw3")]
-position = Vector2(87, -46)
+[node name="Tree4" parent="." unique_id=1368739542 instance=ExtResource("3_j5yw3")]
+position = Vector2(223, -141)
 
-[node name="Tree3" parent="Tree3/Tree3" unique_id=683096549 instance=ExtResource("3_j5yw3")]
-position = Vector2(-52, 122)
+[node name="Tree5" parent="." unique_id=683096549 instance=ExtResource("3_j5yw3")]
+position = Vector2(171, -19)
