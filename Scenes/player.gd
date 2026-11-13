@@ -48,7 +48,7 @@ func render_chunks() -> void:
 			else:
 				
 				# generate the chunk, then render it
-				Game_Data.loaded_chunks[chunk_pos] = Game_Data.Chunk.new(chunk_pos, Game_Data.seed)
+				Game_Data.loaded_chunks[chunk_pos] = Game_Data.Chunk.new(chunk_pos, DatabaseManager.get_current_world_seed())
 				render_chunk(Game_Data.loaded_chunks[chunk_pos])
 				Game_Data.rendered_chunks[chunk_pos] = Game_Data.loaded_chunks[chunk_pos]
 

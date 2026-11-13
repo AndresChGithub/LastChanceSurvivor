@@ -18,7 +18,7 @@ func _ready() -> void:
 		queue_free()
 
 
-# The world is generated from a fixed seed, so an object's position
+# Each world is generated from its own fixed seed, so an object's position
 # identifies it across sessions.
 func _world_key() -> Vector2i:
 	return Vector2i(global_position.round())
