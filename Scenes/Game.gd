@@ -47,7 +47,7 @@ func _ready() -> void:
 
 func _on_add_wood_pressed() -> void:
 	if DatabaseManager.current_account == null:
-	guest_resources["wood"] += 10
+		guest_resources["wood"] += 10
 		status_label.text = "Guest: added 10 wood"
 	else:
 		DatabaseManager.current_account.item_dict["wood"] += 10

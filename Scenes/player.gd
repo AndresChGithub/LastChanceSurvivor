@@ -66,7 +66,6 @@ func _process(delta: float) -> void:
 		target_angle,
 		12.0 * delta
 	)
-	print(scene_file_path)
 	if get_tree().current_scene.name == "Game":
 		render_chunks()
 	
