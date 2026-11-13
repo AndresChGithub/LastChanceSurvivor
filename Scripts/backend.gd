@@ -7,7 +7,11 @@ static var rendered_chunks: Dictionary[Vector2i, Game_Data.Chunk]
 
 # each player will have an item dictionary to keep track of progress.  Keys are the game's resources,
 # values are how many the player has.  
-var item_dict: Dictionary[String, int] = {"wood": 0, "stone": 0, "fiber": 0}
+var item_dict: Dictionary[String, int] = {
+	"wood": 0, "stone": 0, "fiber": 0,
+	"knife": 0, "axe": 0, "string": 0, "bow": 0,
+	"pickaxe": 0, "hoe": 0
+}
 
 # This file contains data structures to keep track of the game state, which will be stored in SQL
 

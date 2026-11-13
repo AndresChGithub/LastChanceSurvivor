@@ -48,7 +48,13 @@ func _prepare_players_table() -> bool:
 			pos_y INTEGER NOT NULL DEFAULT 0,
 			wood INTEGER NOT NULL DEFAULT 0,
 			stone INTEGER NOT NULL DEFAULT 0,
-			fiber INTEGER NOT NULL DEFAULT 0
+			fiber INTEGER NOT NULL DEFAULT 0,
+			knife INTEGER NOT NULL DEFAULT 0,
+			axe INTEGER NOT NULL DEFAULT 0,
+			string INTEGER NOT NULL DEFAULT 0,
+			bow INTEGER NOT NULL DEFAULT 0,
+			pickaxe INTEGER NOT NULL DEFAULT 0,
+			hoe INTEGER NOT NULL DEFAULT 0
 		);
 	"""
 
@@ -76,7 +82,13 @@ func _prepare_players_table() -> bool:
 		"pos_y": "INTEGER NOT NULL DEFAULT 0",
 		"wood": "INTEGER NOT NULL DEFAULT 0",
 		"stone": "INTEGER NOT NULL DEFAULT 0",
-		"fiber": "INTEGER NOT NULL DEFAULT 0"
+		"fiber": "INTEGER NOT NULL DEFAULT 0",
+		"knife": "INTEGER NOT NULL DEFAULT 0",
+		"axe": "INTEGER NOT NULL DEFAULT 0",
+		"string": "INTEGER NOT NULL DEFAULT 0",
+		"bow": "INTEGER NOT NULL DEFAULT 0",
+		"pickaxe": "INTEGER NOT NULL DEFAULT 0",
+		"hoe": "INTEGER NOT NULL DEFAULT 0"
 	}
 
 	for column in required_columns:
@@ -191,7 +203,8 @@ func get_player(username: String) -> Dictionary:
 
 	# Only return gameplay fields, not password credentials.
 	var sql = """
-		SELECT id, username, level, coins, score, pos_x, pos_y, wood, stone, fiber
+		SELECT id, username, level, coins, score, pos_x, pos_y,
+			wood, stone, fiber, knife, axe, string, bow, pickaxe, hoe
 		FROM players WHERE username = ?;
 	"""
 	if not db.query_with_bindings(sql, [username.strip_edges()]):
@@ -210,6 +223,12 @@ func _load_player(player_data: Dictionary) -> void:
 	account.item_dict["wood"] = int(player_data["wood"])
 	account.item_dict["stone"] = int(player_data["stone"])
 	account.item_dict["fiber"] = int(player_data["fiber"])
+	account.item_dict["knife"] = int(player_data["knife"])
+	account.item_dict["axe"] = int(player_data["axe"])
+	account.item_dict["string"] = int(player_data["string"])
+	account.item_dict["bow"] = int(player_data["bow"])
+	account.item_dict["pickaxe"] = int(player_data["pickaxe"])
+	account.item_dict["hoe"] = int(player_data["hoe"])
 
 	var broken_sql = "SELECT pos_x, pos_y FROM broken_terrain WHERE player_id = ?;"
 	if db.query_with_bindings(broken_sql, [player_data["id"]]):
@@ -229,7 +248,8 @@ func save_current_account() -> bool:
 
 	var sql = """
 		UPDATE players SET score = ?, pos_x = ?, pos_y = ?,
-		wood = ?, stone = ?, fiber = ? WHERE id = ?;
+		wood = ?, stone = ?, fiber = ?, knife = ?, axe = ?, string = ?,
+		bow = ?, pickaxe = ?, hoe = ? WHERE id = ?;
 	"""
 	var values = [
 		current_account.score,
@@ -238,6 +258,12 @@ func save_current_account() -> bool:
 		current_account.item_dict.get("wood", 0),
 		current_account.item_dict.get("stone", 0),
 		current_account.item_dict.get("fiber", 0),
+		current_account.item_dict.get("knife", 0),
+		current_account.item_dict.get("axe", 0),
+		current_account.item_dict.get("string", 0),
+		current_account.item_dict.get("bow", 0),
+		current_account.item_dict.get("pickaxe", 0),
+		current_account.item_dict.get("hoe", 0),
 		current_player["id"]
 	]
 

@@ -9,10 +9,17 @@ extends Node2D
 @onready var stone_label: Label = $CanvasLayer/HUD/VBoxContainer/StoneLabel
 @onready var fiber_label: Label = $CanvasLayer/HUD/VBoxContainer/FiberLabel
 
+var crafting := Crafting.new()
 var guest_resources: Dictionary[String, int] = {
 	"wood": 0,
 	"stone": 0,
-	"fiber": 0
+	"fiber": 0,
+	"knife": 0,
+	"axe": 0,
+	"string": 0,
+	"bow": 0,
+	"pickaxe": 0,
+	"hoe": 0
 }
 
 
@@ -28,6 +35,9 @@ func _ready() -> void:
 	buttons.get_node("SaveButton").pressed.connect(_on_save_pressed)
 	buttons.get_node("LogoutButton").pressed.connect(_on_logout_pressed)
 	player.resource_collected.connect(_on_resource_collected)
+	for item in crafting.recipe_book:
+		var button := buttons.get_node("Crafting/" + item.name.capitalize()) as Button
+		button.pressed.connect(_on_craft_pressed.bind(item.name))
 
 	var account = DatabaseManager.current_account
 
@@ -73,6 +83,19 @@ func _on_resource_collected(resource_type: String, amount: int) -> void:
 		DatabaseManager.current_account.item_dict[resource_type] += amount
 		status_label.text = "Collected %d %s. Remember to save!" % [amount, resource_type]
 
+	_update_resource_labels()
+
+
+func _on_craft_pressed(item_name: String) -> void:
+	var inventory: Dictionary = guest_resources
+	if DatabaseManager.current_account != null:
+		inventory = DatabaseManager.current_account.item_dict
+
+	if not crafting.craft(item_name, inventory):
+		status_label.text = "Not enough resources to craft " + item_name
+		return
+
+	status_label.text = "Crafted 1 " + item_name
 	_update_resource_labels()
 
 

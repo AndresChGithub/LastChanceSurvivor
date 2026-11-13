@@ -18,7 +18,7 @@ allow_guest_testing = true
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 260.0
-offset_bottom = 205.0
+offset_bottom = 430.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=873178124]
 layout_mode = 2
@@ -38,6 +38,37 @@ text = "Stone: 0"
 [node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
 layout_mode = 2
 text = "Fiber: 0"
+
+[node name="CraftingLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer"]
+layout_mode = 2
+text = "Crafting"
+
+[node name="Crafting" type="VBoxContainer" parent="CanvasLayer/HUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="Knife" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft Knife (40 wood, 100 stone, 50 fiber)"
+
+[node name="Axe" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft Axe (100 wood, 200 stone, 50 fiber)"
+
+[node name="String" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft String (100 fiber)"
+
+[node name="Bow" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft Bow (5 string, 100 wood)"
+
+[node name="Pickaxe" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft Pickaxe (150 wood, 300 stone, 100 fiber)"
+
+[node name="Hoe" type="Button" parent="CanvasLayer/HUD/VBoxContainer/Crafting"]
+layout_mode = 2
+text = "Craft Hoe (150 wood, 300 stone, 100 fiber)"
 
 [node name="AddWoodButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1855165227]
 layout_mode = 2
