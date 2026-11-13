@@ -8,10 +8,14 @@ var database_ready: bool = false
 var current_player: Dictionary = {}
 var current_account: Game_Data.User_Account = null
 
+# Where the SQLite file lives. Tests set this to a throwaway file
+# before the node enters the tree so they never touch real save data.
+var db_path: String = "user://last_chance_survivor.db"
+
 
 func _ready() -> void:
 	db = SQLite.new()
-	db.path = "user://last_chance_survivor.db"
+	db.path = db_path
 
 	if not db.open_db():
 		push_error("SQLite open failed: " + db.error_message)
