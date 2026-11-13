@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cmcbv5706brs0"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" uid="uid://buoto8cphkwvj" path="res://Scenes/MainMenu.gd" id="1_menu"]
+[ext_resource type="Script" path="res://Scenes/MainMenu.gd" id="1_menu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.101961, 0.137255, 0.172549, 1)
@@ -34,7 +34,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="MainMenu" type="Control" unique_id=695204940]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu")
 
-[node name="Background" type="ColorRect" parent="." unique_id=790565774]
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.062745, 0.094118, 0.113725, 1)
 
-[node name="Center" type="CenterContainer" parent="." unique_id=300719508]
+[node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,42 +61,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="PanelContainer" parent="Center" unique_id=1806267438]
+[node name="Panel" type="PanelContainer" parent="Center"]
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=1832845096]
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 36
 theme_override_constants/margin_top = 28
 theme_override_constants/margin_right = 36
 theme_override_constants/margin_bottom = 26
 
-[node name="Menu" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=298486341]
+[node name="Menu" type="VBoxContainer" parent="Center/Panel/Margin"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="Center/Panel/Margin/Menu" unique_id=771163269]
+[node name="Title" type="Label" parent="Center/Panel/Margin/Menu"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.968627, 0.784314, 0.486275, 1)
 theme_override_font_sizes/font_size = 34
 text = "LAST CHANCE SURVIVOR"
 horizontal_alignment = 1
 
-[node name="AccountLabel" type="Label" parent="Center/Panel/Margin/Menu" unique_id=1260755537]
+[node name="AccountLabel" type="Label" parent="Center/Panel/Margin/Menu"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.784314, 0.85098, 0.858824, 1)
 theme_override_font_sizes/font_size = 17
 text = "Signed in as ..."
 horizontal_alignment = 1
 
-[node name="Spacing" type="Control" parent="Center/Panel/Margin/Menu" unique_id=17564014]
+[node name="Spacing" type="Control" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="PlayButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=543393521]
+[node name="PlayButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -105,7 +105,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Singleplayer"
 
-[node name="JoinMultiplayerButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=544620455]
+[node name="JoinMultiplayerButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
@@ -113,7 +113,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Join Multiplayer"
 
-[node name="ProfileButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=1332384024]
+[node name="ProfileButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
@@ -121,7 +121,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Player Profile"
 
-[node name="SettingsButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=830613744]
+[node name="SettingsButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
@@ -129,7 +129,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Settings"
 
-[node name="LogOutButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=668092211]
+[node name="LogOutButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
@@ -137,7 +137,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Log Out"
 
-[node name="QuitButton" type="Button" parent="Center/Panel/Margin/Menu" unique_id=933388082]
+[node name="QuitButton" type="Button" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
@@ -145,7 +145,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Quit"
 
-[node name="StatusLabel" type="Label" parent="Center/Panel/Margin/Menu" unique_id=758283768]
+[node name="StatusLabel" type="Label" parent="Center/Panel/Margin/Menu"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.968627, 0.784314, 0.486275, 1)

@@ -2,7 +2,7 @@ extends Control
 
 # Simple post-login menu. World selection and multiplayer come later.
 const WELCOME_SCENE: String = "res://Scenes/enter_screen.tscn"
-const GAME_SCENE: String = "res://Scenes/Game.tscn"
+const WORLD_SELECT_SCENE: String = "res://Scenes/WorldSelect.tscn"
 
 @onready var account_label: Label = $Center/Panel/Margin/Menu/AccountLabel
 @onready var status_label: Label = $Center/Panel/Margin/Menu/StatusLabel
@@ -19,12 +19,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
-	# Login currently enters a private development world automatically.
-	# Later: change this to WorldSelect.tscn instead.
-	if DatabaseManager.current_world_id.is_empty():
-		status_label.text = "No world is loaded yet."
-		return
-	get_tree().change_scene_to_file(GAME_SCENE)
+	get_tree().change_scene_to_file(WORLD_SELECT_SCENE)
 
 
 func _on_join_multiplayer_pressed() -> void:

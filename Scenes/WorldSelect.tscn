@@ -1,0 +1,228 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scenes/WorldSelect.gd" id="1_world"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+bg_color = Color(0.102, 0.145, 0.172, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.31, 0.43, 0.48, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_section"]
+bg_color = Color(0.075, 0.111, 0.137, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.34, 0.39, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.185, 0.278, 0.327, 1)
+border_width_bottom = 2
+border_color = Color(0.061, 0.096, 0.117, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.264, 0.372, 0.409, 1)
+border_width_bottom = 2
+border_color = Color(0.941, 0.722, 0.423, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="WorldSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_world")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.052, 0.080, 0.099, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(920, 520)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+
+[node name="Outer" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 19
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Outer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Header" type="HBoxContainer" parent="Center/Panel/Outer/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Outer/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.98, 0.789, 0.5, 1)
+theme_override_font_sizes/font_size = 30
+text = "SINGLEPLAYER WORLDS"
+
+[node name="AccountLabel" type="Label" parent="Center/Panel/Outer/Layout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.741, 0.818, 0.837, 1)
+theme_override_font_sizes/font_size = 15
+text = "Account: ..."
+vertical_alignment = 1
+
+[node name="Rule" type="HSeparator" parent="Center/Panel/Outer/Layout"]
+layout_mode = 2
+
+[node name="Body" type="HBoxContainer" parent="Center/Panel/Outer/Layout"]
+custom_minimum_size = Vector2(0, 295)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="WorldColumn" type="VBoxContainer" parent="Center/Panel/Outer/Layout/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="WorldListLabel" type="Label" parent="Center/Panel/Outer/Layout/Body/WorldColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.92, 0.91, 1)
+theme_override_font_sizes/font_size = 17
+text = "YOUR SAVES"
+
+[node name="WorldScroll" type="ScrollContainer" parent="Center/Panel/Outer/Layout/Body/WorldColumn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="WorldEntries" type="VBoxContainer" parent="Center/Panel/Outer/Layout/Body/WorldColumn/WorldScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="DetailsColumn" type="VBoxContainer" parent="Center/Panel/Outer/Layout/Body"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="DetailHeader" type="Label" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.92, 0.91, 1)
+theme_override_font_sizes/font_size = 17
+text = "SELECTED WORLD"
+
+[node name="SelectedName" type="Label" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.824, 0.565, 1)
+theme_override_font_sizes/font_size = 24
+text = "Testing World"
+
+[node name="SelectedDetails" type="Label" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.87, 0.89, 1)
+theme_override_font_sizes/font_size = 15
+text = "Development save\nSeed: 1234"
+
+[node name="DetailRule" type="HSeparator" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+layout_mode = 2
+
+[node name="CreateLabel" type="Label" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.92, 0.91, 1)
+theme_override_font_sizes/font_size = 17
+text = "CREATE NEW WORLD"
+
+[node name="WorldNameInput" type="LineEdit" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+custom_minimum_size = Vector2(0, 37)
+layout_mode = 2
+placeholder_text = "World name"
+max_length = 32
+
+[node name="SeedInput" type="LineEdit" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+custom_minimum_size = Vector2(0, 37)
+layout_mode = 2
+placeholder_text = "Seed (blank = random)"
+
+[node name="CreateButton" type="Button" parent="Center/Panel/Outer/Layout/Body/DetailsColumn"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "+ Create World"
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Outer/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="Center/Panel/Outer/Layout/Footer"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "Back"
+
+[node name="FooterSpacer" type="Control" parent="Center/Panel/Outer/Layout/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="EnterButton" type="Button" parent="Center/Panel/Outer/Layout/Footer"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "Enter World"
+
+[node name="StatusLabel" type="Label" parent="Center/Panel/Outer/Layout"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.81, 0.55, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="Center/Panel/Outer/Layout/Body/DetailsColumn/CreateButton" to="." method="_on_create_world_pressed"]
+[connection signal="pressed" from="Center/Panel/Outer/Layout/Footer/BackButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Center/Panel/Outer/Layout/Footer/EnterButton" to="." method="_on_enter_pressed"]
