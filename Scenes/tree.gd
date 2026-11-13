@@ -34,5 +34,4 @@ func harvest() -> void:
 
 	if hits_remaining == 0:
 		DatabaseManager.mark_terrain_broken(_world_key())
-		resources_collected.emit(resource_type, resource_amount)
 		queue_free()

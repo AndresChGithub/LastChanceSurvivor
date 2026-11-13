@@ -13,39 +13,77 @@ allow_guest_testing = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1300998795]
 
-[node name="HUD" type="PanelContainer" parent="CanvasLayer" unique_id=2000841687]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 260.0
-offset_bottom = 205.0
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=2000841687]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=873178124]
-layout_mode = 2
+[node name="ResourceBar" type="PanelContainer" parent="CanvasLayer/HUD" unique_id=873178124]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="StatusLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=350981258]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/ResourceBar"]
 layout_mode = 2
-text = "Account"
+theme_override_constants/separation = 14
 
-[node name="WoodLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1137264160]
+[node name="WoodLabel" type="Label" parent="CanvasLayer/HUD/ResourceBar/HBoxContainer" unique_id=1137264160]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "Wood: 0"
 
-[node name="StoneLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1045316138]
+[node name="StoneLabel" type="Label" parent="CanvasLayer/HUD/ResourceBar/HBoxContainer" unique_id=1045316138]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "Stone: 0"
 
-[node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1932149126]
+[node name="FiberLabel" type="Label" parent="CanvasLayer/HUD/ResourceBar/HBoxContainer" unique_id=1932149126]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "Fiber: 0"
 
-[node name="AddWoodButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1855165227]
-layout_mode = 2
-text = "+10 Wood (test)"
+[node name="StatusLabel" type="Label" parent="CanvasLayer/HUD" unique_id=350981258]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
 
-[node name="SaveButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1167660794]
-layout_mode = 2
-text = "Save Progress"
+[node name="StatusTimer" type="Timer" parent="CanvasLayer/HUD"]
+wait_time = 2.5
+one_shot = true
 
-[node name="LogoutButton" type="Button" parent="CanvasLayer/HUD/VBoxContainer" unique_id=1192583931]
-layout_mode = 2
-text = "Save and Log Out"
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer/HUD" unique_id=1167660794]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Menu ▾"
+flat = false
