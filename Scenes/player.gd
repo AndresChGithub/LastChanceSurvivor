@@ -1,6 +1,8 @@
 
 extends CharacterBody2D
 
+signal resource_collected(resource_type: String, amount: int)
+
 const SPEED: float = 360.0
 
 @onready var sprite: Sprite2D = $player_sprite
@@ -84,15 +86,18 @@ func render_chunk(chunk: Game_Data.Chunk):
 		if terrain.type == "Tree":
 			var tree = tree_scene.instantiate()
 			tree.position = terrain.position + chunk.position
+			tree.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(tree)
 			#render the tree
 		if terrain.type == "Boulder":
 			var boulder = boulder_scene.instantiate()
 			boulder.position = terrain.position + chunk.position
+			boulder.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(boulder)
 		if terrain.type == "Plant":
 			var plant = plant_scene.instantiate()
 			plant.position = terrain.position + chunk.position
+			plant.resources_collected.connect(resource_collected.emit)
 			get_parent().add_child(plant)
 	
 	
