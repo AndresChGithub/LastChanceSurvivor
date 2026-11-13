@@ -63,7 +63,7 @@ func _build_menu(account: Game_Data.User_Account) -> void:
 
 	if account != null:
 		popup.add_item("Save", MenuItem.SAVE)
-		popup.add_item("Save and Log Out", MenuItem.SAVE_AND_EXIT)
+		popup.add_item("Save and Exit to Menu", MenuItem.SAVE_AND_EXIT)
 	else:
 		popup.add_item("+10 Wood (test)", MenuItem.ADD_TEST_WOOD)
 		popup.add_item("Exit to Menu", MenuItem.SAVE_AND_EXIT)
@@ -74,7 +74,7 @@ func _on_menu_item_pressed(id: int) -> void:
 		MenuItem.SAVE:
 			_on_save_pressed()
 		MenuItem.SAVE_AND_EXIT:
-			_on_logout_pressed()
+			_on_save_and_exit_pressed()
 		MenuItem.ADD_TEST_WOOD:
 			_on_add_wood_pressed()
 
@@ -126,22 +126,26 @@ func _on_save_pressed() -> void:
 		_show_status(DatabaseManager.last_error)
 
 
-func _on_logout_pressed() -> void:
+# Saves and goes back to the main menu. The player stays signed in, so
+# Play on the main menu drops them back where they left off.
+func _on_save_and_exit_pressed() -> void:
 	var account = DatabaseManager.current_account
 
-	if account != null:
-		account.position = Vector2i(
-			roundi(player.position.x),
-			roundi(player.position.y)
-		)
+	if account == null:
+		# Admin mode isn't signed in, so the main menu would bounce it anyway.
+		get_tree().change_scene_to_file("res://Scenes/enter_screen.tscn")
+		return
 
-		if not DatabaseManager.save_current_account():
-			_show_status(DatabaseManager.last_error)
-			return
+	account.position = Vector2i(
+		roundi(player.position.x),
+		roundi(player.position.y)
+	)
 
-		DatabaseManager.sign_out()
+	if not DatabaseManager.save_current_account():
+		_show_status(DatabaseManager.last_error)
+		return
 
-	get_tree().change_scene_to_file("res://Scenes/enter_screen.tscn")
+	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
 
 func _update_resource_labels() -> void:
